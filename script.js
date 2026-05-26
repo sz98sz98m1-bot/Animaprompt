@@ -13,7 +13,7 @@ document.addEventListener('mousemove', e => {
   requestAnimationFrame(followTrail);
 })();
 
-const hoverEls = document.querySelectorAll('a,button,.pkg-card,.price-card,.testi-card,.faq-q,.vs-item');
+const hoverEls = document.querySelectorAll('a,button,.pkg-card,.price-card,.testi-card,.faq-q,.vs-item,.at-card');
 hoverEls.forEach(el => {
   el.addEventListener('mouseenter', () => { cur.style.width = '0px'; cur.style.height = '0px'; trail.style.width = '44px'; trail.style.height = '44px'; trail.style.borderColor = 'rgba(247,183,49,.6)'; });
   el.addEventListener('mouseleave', () => { cur.style.width = '6px'; cur.style.height = '6px'; trail.style.width = '28px'; trail.style.height = '28px'; trail.style.borderColor = 'rgba(247,183,49,.3)'; });
@@ -27,8 +27,8 @@ window.addEventListener('scroll', () => navbar.classList.toggle('solid', scrollY
 const ham = document.getElementById('ham');
 const drawer = document.getElementById('mobDrawer');
 const overlay = document.getElementById('mobOverlay');
-const close = () => { drawer.classList.remove('open'); overlay.classList.remove('show'); };
-ham.addEventListener('click', () => { drawer.classList.toggle('open'); overlay.classList.toggle('show'); });
+const close = () => { ham.classList.remove('open'); drawer.classList.remove('open'); overlay.classList.remove('show'); };
+ham.addEventListener('click', () => { ham.classList.toggle('open'); drawer.classList.toggle('open'); overlay.classList.toggle('show'); });
 overlay.addEventListener('click', close);
 document.querySelectorAll('.mob-a,.mob-cta').forEach(a => a.addEventListener('click', close));
 
