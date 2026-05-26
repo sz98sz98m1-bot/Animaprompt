@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnimaPrompt — أنشئ كارتون احترافي بالـ AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Reem+Kufi:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="trail"></div>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="logo-icon">▲</span>
+      Anima<span class="logo-accent">Prompt</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#how">كيف يعمل</a></li>
+      <li><a href="#packages">الباقات</a></li>
+      <li><a href="#workflow">سير العمل</a></li>
+      <li><a href="#pricing">الأسعار</a></li>
+      <li><a href="#tools">الأدوات</a></li>
+      <li><a href="#faq">الأسئلة</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="nav-login">تسجيل الدخول</a>
+      <a href="#pricing" class="nav-cta">ابدأ مجاناً <span>→</span></a>
+    </div>
+    <button class="hamburger" id="ham">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-drawer" id="mobDrawer">
+  <div class="mob-logo">Anima<span>Prompt</span></div>
+  <nav class="mob-nav">
+    <a href="#how" class="mob-a">كيف يعمل</a>
+    <a href="#packages" class="mob-a">الباقات</a>
+    <a href="#workflow" class="mob-a">سير العمل</a>
+    <a href="#pricing" class="mob-a">الأسعار</a>
+    <a href="#tools" class="mob-a">الأدوات</a>
+    <a href="#faq" class="mob-a">الأسئلة</a>
+  </nav>
+  <a href="#pricing" class="mob-cta">ابدأ الآن</a>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-grid-bg"></div>
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+  <div class="hero-inner">
+    <!-- HERO CONTENT -->
+    <div class="hero-content">
+      <div class="hero-announce">
+        <div class="announce-dot"></div>
+        <span>جديد: Motion Pack v2.0 متاح الآن</span>
+        <span class="announce-arrow">→</span>
+      </div>
+
+      <h1 class="hero-title">
+        حوّل أفكارك إلى<br>
+        <span class="title-gradient">أفلام كارتون</span><br>
+        <span class="title-light">باستخدام الـ AI</span>
+      </h1>
+
+      <p class="hero-desc">
+        منصة برومبتات متكاملة لإنتاج كارتون احترافي — من بناء الشخصية إلى المشاهد
+        إلى القصة إلى الحركة. كل شيء جاهز، انسخ والصق.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#pricing" class="cta-main">
+          <span>ابدأ الإنتاج الآن</span>
+          <div class="cta-icon">→</div>
+        </a>
+        <a href="#how" class="cta-secondary">
+          <div class="play-icon">▶</div>
+          <span>شوف كيف يعمل</span>
+        </a>
+      </div>
+
+      <div class="hero-social-proof">
+        <div class="sp-avatars">
+          <div class="sp-av" style="background:linear-gradient(135deg,#F7B731,#d4960f)">أ</div>
+          <div class="sp-av" style="background:linear-gradient(135deg,#e94560,#c02040)">س</div>
+          <div class="sp-av" style="background:linear-gradient(135deg,#4a90e2,#2563eb)">م</div>
+          <div class="sp-av" style="background:linear-gradient(135deg,#10b981,#059669)">ف</div>
+          <div class="sp-av sp-more">+</div>
+        </div>
+        <div class="sp-text">
+          <div class="sp-stars">★★★★★</div>
+          <span>انضم <strong>+2,400</strong> منشئ محتوى</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO VISUAL -->
+    <div class="hero-visual">
+      <div class="hv-glow"></div>
+      <div class="hv-card main-card">
+        <div class="hvc-header">
+          <div class="hvc-dots"><span></span><span></span><span></span></div>
+          <div class="hvc-title">character_prompt.txt</div>
+        </div>
+        <div class="hvc-body">
+          <div class="code-line"><span class="cl-key">style</span><span class="cl-sep">:</span> <span class="cl-val">"Pixar 3D, cinematic"</span></div>
+          <div class="code-line"><span class="cl-key">character</span><span class="cl-sep">:</span> <span class="cl-val">"Mary, early 20s"</span></div>
+          <div class="code-line"><span class="cl-key">hair</span><span class="cl-sep">:</span> <span class="cl-val">"platinum blonde"</span></div>
+          <div class="code-line"><span class="cl-key">outfit</span><span class="cl-sep">:</span> <span class="cl-val">"Lakers #8 jersey"</span></div>
+          <div class="code-line"><span class="cl-key">render</span><span class="cl-sep">:</span> <span class="cl-val">"4K, white bg"</span></div>
+          <div class="code-line"><span class="cl-key">views</span><span class="cl-sep">:</span> <span class="cl-val">["front","side","back","3/4"]</span></div>
+          <div class="code-cursor">|</div>
+        </div>
+        <div class="hvc-footer">
+          <div class="hvc-status">
+            <div class="status-dot"></div>
+            <span>Generating...</span>
+          </div>
+          <div class="hvc-progress"><div class="progress-fill"></div></div>
+        </div>
+      </div>
+
+      <div class="hv-card float-card fc-1">
+        <div class="fc-icon">🎭</div>
+        <div class="fc-info">
+          <strong>Character Sheet</strong>
+          <span>4 views · Color Palette</span>
+        </div>
+        <div class="fc-check">✓</div>
+      </div>
+
+      <div class="hv-card float-card fc-2">
+        <div class="fc-icon">✨</div>
+        <div class="fc-info">
+          <strong>Motion Ready</strong>
+          <span>Runway · Pika · Kling</span>
+        </div>
+        <div class="fc-check">✓</div>
+      </div>
+
+      <div class="hv-card float-card fc-3">
+        <div class="fc-icon">📈</div>
+        <div class="fc-info">
+          <strong>180+ Prompts</strong>
+          <span>Updated weekly</span>
+        </div>
+        <div class="fc-badge">NEW</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <span>مرر للأسفل</span>
+  </div>
+</section>
+
+<!-- ═══════════════ LOGOS / TOOLS ═══════════════ -->
+<section class="tools-bar">
+  <p class="tools-label">يعمل مع أشهر أدوات الـ AI</p>
+  <div class="tools-marquee-wrap">
+    <div class="tools-marquee">
+      <div class="tool-logo">Midjourney</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">DALL·E 3</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Runway Gen-3</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Pika 2.0</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Kling AI</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">ChatGPT</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Adobe Firefly</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Claude AI</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">ElevenLabs</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Luma AI</div>
+      <div class="tool-sep">·</div>
+      <!-- Duplicate for infinite scroll -->
+      <div class="tool-logo">Midjourney</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">DALL·E 3</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Runway Gen-3</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Pika 2.0</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Kling AI</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">ChatGPT</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Adobe Firefly</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Claude AI</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">ElevenLabs</div>
+      <div class="tool-sep">·</div>
+      <div class="tool-logo">Luma AI</div>
+      <div class="tool-sep">·</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STATS ═══════════════ -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-block reveal">
+        <div class="stat-num-row">
+          <div class="sb-num" data-count="2400">0</div>
+          <div class="sb-plus">+</div>
+        </div>
+        <div class="sb-label">منشئ محتوى نشط</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block reveal">
+        <div class="stat-num-row">
+          <div class="sb-num" data-count="180">0</div>
+          <div class="sb-plus">+</div>
+        </div>
+        <div class="sb-label">برومبت جاهز</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block reveal">
+        <div class="stat-num-row">
+          <div class="sb-num" data-count="4">0</div>
+        </div>
+        <div class="sb-label">خطوات فقط للإنتاج</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-block reveal">
+        <div class="stat-num-row">
+          <div class="sb-num">4.9</div>
+        </div>
+        <div class="sb-label">تقييم المستخدمين ★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-tag reveal">كيف يعمل النظام</div>
+    <h2 class="section-h2 reveal">4 خطوات من الفكرة<br>إلى الفيديو الكارتوني</h2>
+    <p class="section-p reveal">كل خطوة مبنية على السابقة — تسلسل منطقي ينتج نتائج احترافية</p>
+
+    <div class="how-steps">
+
+      <div class="how-step reveal">
+        <div class="hs-number">01</div>
+        <div class="hs-content">
+          <div class="hs-icon-wrap">
+            <div class="hs-icon">🎭</div>
+          </div>
+          <div class="hs-text">
+            <div class="hs-tag">Character Builder</div>
+            <h3>بناء الشخصية</h3>
+            <p>برومبت متكامل يبني شخصيتك من الصفر — Character Sheet بـ 4 زوايا، لوحة ألوان رسمية، 12 تعبير وجهي.</p>
+            <div class="hs-tools">
+              <span>Midjourney</span>
+              <span>DALL·E</span>
+              <span>Firefly</span>
+            </div>
+          </div>
+          <div class="hs-output">
+            <div class="hso-label">المخرج</div>
+            <div class="hso-items">
+              <div class="hso-i">Character Sheet</div>
+              <div class="hso-i">Color Palette</div>
+              <div class="hso-i">12 Expressions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hs-connector">
+        <div class="hs-conn-line"></div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="hs-number">02</div>
+        <div class="hs-content">
+          <div class="hs-icon-wrap">
+            <div class="hs-icon">🎬</div>
+          </div>
+          <div class="hs-text">
+            <div class="hs-tag">Scene Design</div>
+            <h3>تصميم المشاهد</h3>
+            <p>برومبتات البيئات والخلفيات — ضع شخصيتك في مشهد سينمائي مع الإضاءة الصحيحة وزاوية الكاميرا المثالية.</p>
+            <div class="hs-tools">
+              <span>Midjourney</span>
+              <span>Ideogram</span>
+              <span>SD</span>
+            </div>
+          </div>
+          <div class="hs-output">
+            <div class="hso-label">المخرج</div>
+            <div class="hso-items">
+              <div class="hso-i">Scene Layouts</div>
+              <div class="hso-i">Backgrounds</div>
+              <div class="hso-i">Lighting</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hs-connector">
+        <div class="hs-conn-line"></div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="hs-number">03</div>
+        <div class="hs-content">
+          <div class="hs-icon-wrap">
+            <div class="hs-icon">📖</div>
+          </div>
+          <div class="hs-text">
+            <div class="hs-tag">Story Writer</div>
+            <h3>كتابة القصة</h3>
+            <p>برومبتات لـ ChatGPT / Claude تكتب Script كامل — حوارات، أحداث، تسلسل درامي. قالب الحلقة جاهز.</p>
+            <div class="hs-tools">
+              <span>ChatGPT</span>
+              <span>Claude</span>
+              <span>Gemini</span>
+            </div>
+          </div>
+          <div class="hs-output">
+            <div class="hso-label">المخرج</div>
+            <div class="hso-items">
+              <div class="hso-i">Full Script</div>
+              <div class="hso-i">Storyboard</div>
+              <div class="hso-i">Dialogue</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hs-connector">
+        <div class="hs-conn-line"></div>
+      </div>
+
+      <div class="how-step reveal">
+        <div class="hs-number">04</div>
+        <div class="hs-content">
+          <div class="hs-icon-wrap gold-wrap">
+            <div class="hs-icon">✨</div>
+          </div>
+          <div class="hs-text">
+            <div class="hs-tag">Motion & Animation</div>
+            <h3>الحركة والأنيميشن</h3>
+            <p>برومبتات Runway / Pika / Kling تضيف الحياة — مشي، حوار، تعبيرات. النتيجة: فيديو كارتون متحرك.</p>
+            <div class="hs-tools">
+              <span>Runway Gen-3</span>
+              <span>Pika 2.0</span>
+              <span>Kling</span>
+            </div>
+          </div>
+          <div class="hs-output gold-output">
+            <div class="hso-label">المخرج النهائي</div>
+            <div class="hso-items">
+              <div class="hso-i">Animated Video</div>
+              <div class="hso-i">Motion Clips</div>
+              <div class="hso-i">Edit Ready</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ VIDEO DEMO ═══════════════ -->
+<section class="video-section" id="workflow">
+  <div class="container">
+    <div class="section-tag reveal">شاهد بنفسك</div>
+    <h2 class="section-h2 reveal">طريقة الاشتراك والاستخدام</h2>
+    <p class="section-p reveal">فيديو توضيحي يشرح كيف تشترك وتبدأ إنتاج كارتونك في أقل من 10 دقائق</p>
+
+    <div class="video-wrap reveal">
+      <div class="video-frame">
+        <div class="vf-overlay" id="vfOverlay">
+          <div class="vf-play-btn" id="playBtn">
+            <div class="vpb-ring"></div>
+            <div class="vpb-icon">▶</div>
+          </div>
+          <div class="vf-thumb-content">
+            <div class="vft-label">AnimaPrompt — شرح كامل</div>
+            <div class="vft-duration">10:24</div>
+          </div>
+        </div>
+        <div class="video-placeholder" id="videoPlaceholder">
+          <div class="vp-scene">
+            <div class="vp-grid"></div>
+            <div class="vp-char">
+              <div class="vpc-head"></div>
+              <div class="vpc-body">LAKERS<br><span>8</span></div>
+            </div>
+            <div class="vp-ui">
+              <div class="vp-prompt">
+                <span class="vpu-cursor">|</span> A Pixar-style character...
+              </div>
+              <div class="vp-arrow">↓</div>
+              <div class="vp-result">✓ Character Generated!</div>
+            </div>
+          </div>
+        </div>
+        <!-- يُستبدل هذا بـ iframe الفيديو عند الإضافة -->
+        <!-- <iframe id="videoIframe" src="" allowfullscreen></iframe> -->
+      </div>
+
+      <div class="video-steps">
+        <div class="vs-item active" data-step="0">
+          <div class="vsi-num">01</div>
+          <div class="vsi-text">
+            <strong>اختر الباقة</strong>
+            <span>ادفع مرة واحدة واحصل على كل البرومبتات</span>
+          </div>
+        </div>
+        <div class="vs-item" data-step="1">
+          <div class="vsi-num">02</div>
+          <div class="vsi-text">
+            <strong>حمّل الملفات</strong>
+            <span>PDF + Google Docs منظم بالخطوات</span>
+          </div>
+        </div>
+        <div class="vs-item" data-step="2">
+          <div class="vsi-num">03</div>
+          <div class="vsi-text">
+            <strong>انسخ والصق</strong>
+            <span>في أي أداة AI وشاهد النتيجة فوراً</span>
+          </div>
+        </div>
+        <div class="vs-item" data-step="3">
+          <div class="vsi-num">04</div>
+          <div class="vsi-text">
+            <strong>انشر الكارتون</strong>
+            <span>يوتيوب، تيكتوك، إنستغرام — فيديو جاهز</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PACKAGES ═══════════════ -->
+<section class="packages" id="packages">
+  <div class="container">
+    <div class="section-tag reveal">ما تحصل عليه</div>
+    <h2 class="section-h2 reveal">باقات البرومبتات</h2>
+    <p class="section-p reveal">كل باقة تغطي خطوة كاملة — اشتر واحدة أو خذ الكل</p>
+
+    <div class="pkg-grid">
+      <div class="pkg-card reveal">
+        <div class="pkg-icon">🎭</div>
+        <div class="pkg-step">STEP 01</div>
+        <h3>Character Builder</h3>
+        <p>حزمة بناء الشخصية الكاملة</p>
+        <div class="pkg-count">30+ برومبت</div>
+        <ul class="pkg-list">
+          <li>Character Sheet — 4 زوايا</li>
+          <li>تفاصيل الوجه الكاملة</li>
+          <li>لوحة الألوان الرسمية</li>
+          <li>12 تعبير وجهي</li>
+          <li>الأزياء والإكسسوارات</li>
+          <li>Consistency Guide</li>
+        </ul>
+        <div class="pkg-result">
+          <span class="pr-label">مثال:</span>
+          ماري — Pixar Character Sheet
+        </div>
+      </div>
+
+      <div class="pkg-card reveal">
+        <div class="pkg-icon">🎬</div>
+        <div class="pkg-step">STEP 02</div>
+        <h3>Scene Design</h3>
+        <p>برومبتات المشاهد والبيئات</p>
+        <div class="pkg-count">35+ برومبت</div>
+        <ul class="pkg-list">
+          <li>5 بيئات مختلفة</li>
+          <li>إضاءة سينمائية</li>
+          <li>زوايا الكاميرا</li>
+          <li>طقس ووقت اليوم</li>
+          <li>إدخال الشخصية في المشهد</li>
+          <li>10 خلفيات جاهزة</li>
+        </ul>
+        <div class="pkg-result">
+          <span class="pr-label">مثال:</span>
+          ماري في ملعب كرة / شارع ليلي
+        </div>
+      </div>
+
+      <div class="pkg-card reveal">
+        <div class="pkg-icon">📖</div>
+        <div class="pkg-step">STEP 03</div>
+        <h3>Story Writer</h3>
+        <p>برومبتات كتابة القصة والسكريبت</p>
+        <div class="pkg-count">40+ برومبت</div>
+        <ul class="pkg-list">
+          <li>Script الحلقة الكاملة</li>
+          <li>Storyboard جاهز</li>
+          <li>حوارات طبيعية</li>
+          <li>خط الأحداث الدرامي</li>
+          <li>نهايات الحلقة</li>
+          <li>3 قوالب قصص جاهزة</li>
+        </ul>
+        <div class="pkg-result">
+          <span class="pr-label">مثال:</span>
+          حلقة 5 دقائق جاهزة
+        </div>
+      </div>
+
+      <div class="pkg-card featured-pkg reveal">
+        <div class="pkg-featured">الأكثر طلباً ★</div>
+        <div class="pkg-icon">✨</div>
+        <div class="pkg-step">STEP 04</div>
+        <h3>Motion & Animation</h3>
+        <p>برومبتات تحريك الشخصيات</p>
+        <div class="pkg-count">75+ برومبت</div>
+        <ul class="pkg-list">
+          <li>Walk Cycle — Runway / Pika</li>
+          <li>تعبيرات وجه متحركة</li>
+          <li>حركات ردود الفعل</li>
+          <li>حركة الكاميرا</li>
+          <li>انتقالات بين المشاهد</li>
+          <li>إعدادات الجودة لكل أداة</li>
+        </ul>
+        <div class="pkg-result">
+          <span class="pr-label">مثال:</span>
+          مقاطع فيديو جاهزة للمونتاج
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-tag reveal">الأسعار</div>
+    <h2 class="section-h2 reveal">استثمار مرة واحدة،<br>نتائج إلى الأبد</h2>
+    <p class="section-p reveal">لا اشتراك شهري — ادفع مرة واحدة واستخدم إلى الأبد</p>
+
+    <div class="pricing-grid">
+
+      <!-- STARTER -->
+      <div class="price-card reveal">
+        <div class="pc-top">
+          <div class="pc-plan">Character Only</div>
+          <div class="pc-tagline">مثالي للبداية</div>
+        </div>
+        <div class="pc-price-wrap">
+          <div class="pc-price">
+            <sup>$</sup><span class="pc-amount">29</span>
+          </div>
+          <div class="pc-note">دفعة واحدة · بدون تجديد</div>
+        </div>
+        <ul class="pc-list">
+          <li class="on">Character Builder Pack كامل</li>
+          <li class="on">30+ برومبت للشخصية</li>
+          <li class="on">Consistency Guide</li>
+          <li class="on">تحديثات 6 أشهر</li>
+          <li class="on">ملف PDF منظم</li>
+          <li class="off">Scene Design Pack</li>
+          <li class="off">Story Writer Pack</li>
+          <li class="off">Motion Pack</li>
+          <li class="off">مجموعة التيليغرام</li>
+        </ul>
+        <a href="#" class="pc-btn outline-btn">ابدأ بـ Character — $29</a>
+        <div class="pc-guarantee">✓ ضمان استرداد 7 أيام</div>
+      </div>
+
+      <!-- PRO — FEATURED -->
+      <div class="price-card pro-card reveal">
+        <div class="pro-glow"></div>
+        <div class="pc-popular">الأفضل قيمة ✦</div>
+        <div class="pc-top">
+          <div class="pc-plan">Full Production</div>
+          <div class="pc-tagline">من الفكرة إلى الفيديو</div>
+        </div>
+        <div class="pc-price-wrap">
+          <div class="pc-old-price">كان $240</div>
+          <div class="pc-price">
+            <sup>$</sup><span class="pc-amount">149</span>
+          </div>
+          <div class="pc-note">دفعة واحدة · تحديثات مدى الحياة</div>
+        </div>
+        <ul class="pc-list">
+          <li class="on">Character Builder Pack</li>
+          <li class="on">Scene Design Pack</li>
+          <li class="on">Story Writer Pack</li>
+          <li class="on">Motion & Animation Pack</li>
+          <li class="on"><strong>180+ برومبت شامل</strong></li>
+          <li class="on"><strong>تحديثات مدى الحياة</strong></li>
+          <li class="on">مجموعة تيليغرام خاصة</li>
+          <li class="on">3 شخصيات مُعدّة مسبقاً</li>
+          <li class="on">دعم أولوية</li>
+        </ul>
+        <a href="#" class="pc-btn gold-btn">احصل عليها الآن — $149</a>
+        <div class="pc-guarantee">✓ ضمان استرداد 7 أيام · ✓ وصول فوري</div>
+      </div>
+
+      <!-- STUDIO -->
+      <div class="price-card reveal">
+        <div class="pc-top">
+          <div class="pc-plan">Studio License</div>
+          <div class="pc-tagline">للفرق والاستوديوهات</div>
+        </div>
+        <div class="pc-price-wrap">
+          <div class="pc-price">
+            <sup>$</sup><span class="pc-amount">299</span>
+          </div>
+          <div class="pc-note">سنوياً · 5 مستخدمين</div>
+        </div>
+        <ul class="pc-list">
+          <li class="on">كل شيء في Full Production</li>
+          <li class="on">5 مستخدمين</li>
+          <li class="on">برومبتات حصرية</li>
+          <li class="on">دعم مباشر أولوية</li>
+          <li class="on">طلبات مخصصة</li>
+          <li class="on">تدريب شهري للفريق</li>
+          <li class="on">White Label License</li>
+          <li class="on">API Access (قريباً)</li>
+          <li class="on">سيشن Onboarding مجاني</li>
+        </ul>
+        <a href="#" class="pc-btn outline-btn">تواصل معنا — $299</a>
+        <div class="pc-guarantee">✓ ضمان استرداد 14 يوم</div>
+      </div>
+
+    </div>
+
+    <div class="pricing-footnote reveal">
+      <span>🔒 دفع آمن عبر Stripe</span>
+      <span>·</span>
+      <span>📦 وصول فوري بعد الدفع</span>
+      <span>·</span>
+      <span>↻ تحديثات تلقائية</span>
+      <span>·</span>
+      <span>💬 دعم عربي</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ AI TOOLS SECTION ═══════════════ -->
+<section class="ai-tools" id="tools">
+  <div class="container">
+    <div class="section-tag reveal">الأدوات المطلوبة</div>
+    <h2 class="section-h2 reveal">كل الأدوات التي تحتاجها<br>لصناعة كارتونك</h2>
+    <p class="section-p reveal">اختر الأدوات المناسبة لكل خطوة من خطوات الإنتاج — كلها تعمل مع برومبتاتنا مباشرة</p>
+
+    <!-- CATEGORY 1: Image Generation -->
+    <div class="at-category reveal">
+      <div class="at-cat-header">
+        <div class="at-cat-icon">🎨</div>
+        <div>
+          <div class="at-cat-step">الخطوة 1 و 2</div>
+          <div class="at-cat-title">توليد الصور والشخصيات</div>
+        </div>
+      </div>
+      <div class="at-grid">
+        <a href="https://www.midjourney.com" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo mj">MJ</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">Midjourney</div>
+          <div class="at-desc">أفضل أداة لتوليد صور الشخصيات بأسلوب Pixar</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://openai.com/dall-e-3" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo de">DE</div>
+            <div class="at-badge paid">مدفوع</div>
+          </div>
+          <div class="at-name">DALL·E 3</div>
+          <div class="at-desc">مدمج مع ChatGPT — يقبل التعليمات بالعربي</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://firefly.adobe.com" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo ff">FF</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">Adobe Firefly</div>
+          <div class="at-desc">مثالي للتصاميم التجارية مع ترخيص كامل</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://ideogram.ai" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo id">ID</div>
+            <div class="at-badge free">مجاني</div>
+          </div>
+          <div class="at-name">Ideogram</div>
+          <div class="at-desc">ممتاز للمشاهد والخلفيات الكارتونية</div>
+          <div class="at-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CATEGORY 2: Story & Script -->
+    <div class="at-category reveal">
+      <div class="at-cat-header">
+        <div class="at-cat-icon">📖</div>
+        <div>
+          <div class="at-cat-step">الخطوة 3</div>
+          <div class="at-cat-title">كتابة القصة والسكريبت</div>
+        </div>
+      </div>
+      <div class="at-grid">
+        <a href="https://chatgpt.com" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo gpt">GP</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">ChatGPT</div>
+          <div class="at-desc">الأفضل لكتابة السكريبت والحوارات بالعربي</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://claude.ai" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo cl">CL</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">Claude AI</div>
+          <div class="at-desc">ممتاز للقصص الطويلة والشخصيات المعقدة</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://gemini.google.com" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo gm">GM</div>
+            <div class="at-badge free">مجاني</div>
+          </div>
+          <div class="at-name">Gemini</div>
+          <div class="at-desc">مجاني ويتكامل مع Google Docs للكتابة</div>
+          <div class="at-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CATEGORY 3: Video & Animation -->
+    <div class="at-category reveal">
+      <div class="at-cat-header">
+        <div class="at-cat-icon">🎬</div>
+        <div>
+          <div class="at-cat-step">الخطوة 4</div>
+          <div class="at-cat-title">توليد الفيديو والحركة</div>
+        </div>
+      </div>
+      <div class="at-grid">
+        <a href="https://runwayml.com" target="_blank" rel="noopener" class="at-card at-card-featured">
+          <div class="at-card-top">
+            <div class="at-logo rw">RW</div>
+            <div class="at-badge paid">مدفوع</div>
+          </div>
+          <div class="at-name">Runway Gen-3</div>
+          <div class="at-desc">الأقوى لتحريك الشخصيات بأسلوب سينمائي</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://pika.art" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo pk">PK</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">Pika 2.0</div>
+          <div class="at-desc">سهل الاستخدام ونتائج كارتونية رائعة</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://klingai.com" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo kl">KL</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">Kling AI</div>
+          <div class="at-desc">حركات واقعية وتعبيرات وجه تفصيلية</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://lumalabs.ai" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo lm">LM</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">Luma Dream Machine</div>
+          <div class="at-desc">مجاني ومميز لمشاهد الحركة والطيران</div>
+          <div class="at-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CATEGORY 4: Audio & Voice -->
+    <div class="at-category reveal">
+      <div class="at-cat-header">
+        <div class="at-cat-icon">🎙️</div>
+        <div>
+          <div class="at-cat-step">إضافي</div>
+          <div class="at-cat-title">الصوت والتعليق</div>
+        </div>
+      </div>
+      <div class="at-grid">
+        <a href="https://elevenlabs.io" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo el">EL</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">ElevenLabs</div>
+          <div class="at-desc">أصوات كارتونية واقعية بالعربي والإنجليزي</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://murf.ai" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo mu">MU</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">Murf AI</div>
+          <div class="at-desc">تعليق صوتي احترافي للفيديوهات الكارتونية</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://suno.com" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo su">SU</div>
+            <div class="at-badge free-paid">مجاني / مدفوع</div>
+          </div>
+          <div class="at-name">Suno AI</div>
+          <div class="at-desc">موسيقى تصويرية وأغاني مخصصة للكارتون</div>
+          <div class="at-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- CATEGORY 5: Editing -->
+    <div class="at-category reveal">
+      <div class="at-cat-header">
+        <div class="at-cat-icon">✂️</div>
+        <div>
+          <div class="at-cat-step">إضافي</div>
+          <div class="at-cat-title">المونتاج والتصدير</div>
+        </div>
+      </div>
+      <div class="at-grid">
+        <a href="https://www.capcut.com" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo cc">CC</div>
+            <div class="at-badge free">مجاني</div>
+          </div>
+          <div class="at-name">CapCut</div>
+          <div class="at-desc">مجاني وسهل — مثالي للمونتاج السريع للتيكتوك</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://www.blackmagicdesign.com/products/davinciresolve" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo dr">DR</div>
+            <div class="at-badge free">مجاني</div>
+          </div>
+          <div class="at-name">DaVinci Resolve</div>
+          <div class="at-desc">مونتاج احترافي لتصدير الحلقة النهائية</div>
+          <div class="at-arrow">↗</div>
+        </a>
+        <a href="https://www.adobe.com/products/premiere.html" target="_blank" rel="noopener" class="at-card">
+          <div class="at-card-top">
+            <div class="at-logo pr">PR</div>
+            <div class="at-badge paid">مدفوع</div>
+          </div>
+          <div class="at-name">Adobe Premiere</div>
+          <div class="at-desc">المعيار الصناعي لمونتاج أفلام الكارتون</div>
+          <div class="at-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-tag reveal">آراء العملاء</div>
+    <h2 class="section-h2 reveal">ماذا قال منشئو المحتوى</h2>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="tc-stars">★★★★★</div>
+        <p>"وفّرت عليّ أسابيع من التجريب. الباقة الكاملة غيّرت طريقة عملي تماماً — الآن أنتج حلقة كاملة في يومين بدل شهر."</p>
+        <div class="tc-author">
+          <div class="tc-av" style="background:linear-gradient(135deg,#F7B731,#d4960f)">أ</div>
+          <div>
+            <strong>أحمد خالد</strong>
+            <span>يوتيوبر · 120K مشترك</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="tc-stars">★★★★★</div>
+        <p>"أنشأت شخصيتي الكارتونية في ساعة واحدة فقط. النتيجة أفضل من توقعاتي — Pixar style حقيقي بدون أي خبرة تقنية."</p>
+        <div class="tc-author">
+          <div class="tc-av" style="background:linear-gradient(135deg,#e94560,#c02040)">س</div>
+          <div>
+            <strong>سارة المنصور</strong>
+            <span>مصممة محتوى · تيكتوك</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="tc-stars">★★★★★</div>
+        <p>"Motion Pack هو الأفضل على الإطلاق. تعلمت كيف أحرك الشخصيات بـ Runway بطريقة ما كنت أتخيل إنها ممكنة بدون تيم."</p>
+        <div class="tc-author">
+          <div class="tc-av" style="background:linear-gradient(135deg,#4a90e2,#2563eb)">م</div>
+          <div>
+            <strong>محمد العتيبي</strong>
+            <span>مخرج ومنتج محتوى</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-tag reveal">الأسئلة الشائعة</div>
+    <h2 class="section-h2 reveal">عندك سؤال؟</h2>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>هل أحتاج خبرة في التصميم أو البرمجة؟</span>
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">
+          لا بالكل — البرومبتات مكتوبة جاهزة، تنسخها وتلصقها في الأداة. لا تحتاج أي معرفة تقنية.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>هل البرومبتات باللغة العربية؟</span>
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">
+          كل برومبت يأتي بنسختين: عربي لفهم المحتوى وتعديله، وإنجليزي للأداة (لأن AI يفهم الإنجليزي بشكل أفضل).
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>هل هي دفعة واحدة أم اشتراك شهري؟</span>
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">
+          دفعة واحدة تماماً — تدفع مرة وحدة وتستخدم إلى الأبد. الباقة Pro تشمل تحديثات مدى الحياة.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>هل تعمل البرومبتات مع أدوات AI المجانية؟</span>
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">
+          نعم — بعضها يعمل مع النسخ المجانية. لكن للحصول على أفضل نتيجة نوصي بالنسخ المدفوعة من Midjourney أو Runway.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>ماذا لو ما أعجبتني النتيجة؟</span>
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">
+          ضمان استرداد كامل خلال 7 أيام — لا أسئلة، لا تعقيدات.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">
+          <span>هل يمكنني استخدام الكارتون تجارياً؟</span>
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-a">
+          نعم — كل المحتوى الذي تنتجه باستخدام برومبتاتنا هو ملكك الكاملة، يمكنك نشره وتحقيق الدخل منه.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FINAL CTA ═══════════════ -->
+<section class="final-cta">
+  <div class="fca-bg-grid"></div>
+  <div class="fca-glow"></div>
+  <div class="container">
+    <div class="fca-inner reveal">
+      <div class="fca-tag">🎬 ابدأ اليوم</div>
+      <h2 class="fca-title">
+        فيلمك الكارتوني<br>
+        يبدأ بـ <span class="gold-text">برومبت واحد</span>
+      </h2>
+      <p class="fca-desc">انضم لـ +2,400 منشئ محتوى يستخدمون AnimaPrompt لإنتاج أفلام كارتون احترافية بالـ AI</p>
+      <a href="#pricing" class="fca-btn">
+        <span>احصل على الباقة الكاملة — $149</span>
+        <div class="fca-btn-icon">→</div>
+      </a>
+      <div class="fca-trust">
+        <span>🔒 دفع آمن</span>
+        <span>·</span>
+        <span>📦 وصول فوري</span>
+        <span>·</span>
+        <span>↩ استرداد 7 أيام</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">Anima<span>Prompt</span></div>
+        <p>منصة برومبتات إنتاج الكارتون بالـ AI</p>
+        <div class="footer-social">
+          <a href="#" class="fs-link">تيليغرام</a>
+          <a href="#" class="fs-link">تويتر</a>
+          <a href="#" class="fs-link">يوتيوب</a>
+          <a href="#" class="fs-link">إنستغرام</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="flg">
+          <div class="flg-title">المنتج</div>
+          <a href="#how">كيف يعمل</a>
+          <a href="#packages">الباقات</a>
+          <a href="#pricing">الأسعار</a>
+          <a href="#faq">الأسئلة</a>
+        </div>
+        <div class="flg">
+          <div class="flg-title">الأدوات</div>
+          <a href="#tools">الصور والشخصيات</a>
+          <a href="#tools">الفيديو والحركة</a>
+          <a href="#tools">الصوت والموسيقى</a>
+          <a href="#tools">المونتاج</a>
+        </div>
+        <div class="flg">
+          <div class="flg-title">قانوني</div>
+          <a href="#">سياسة الخصوصية</a>
+          <a href="#">الشروط والأحكام</a>
+          <a href="#">سياسة الاسترداد</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AnimaPrompt · جميع الحقوق محفوظة</span>
+      <span>صُنع بـ ♥ للمبدعين العرب</span>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
