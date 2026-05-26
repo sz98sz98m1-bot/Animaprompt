@@ -1050,16 +1050,26 @@ canvas.hero-canvas {
   transition: var(--tr); cursor: pointer; width: 100%;
   border: none; font-family: inherit;
 }
-.pay-gumroad {
-  background: var(--gold); color: #000;
-}
-.pay-gumroad:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 16px 40px rgba(247,183,49,.25); }
+/* الدفع بالبطاقة — الزر الرئيسي */
 .pay-card {
+  background: var(--gold); color: #000;
+  flex-direction: column; gap: 4px;
+  padding: 18px 24px;
+}
+.pay-card:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 16px 40px rgba(247,183,49,.3); }
+.pay-icon { font-size: 18px; }
+.pay-badge-stripe {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px; font-weight: 700;
+  color: rgba(0,0,0,0.5); letter-spacing: 1px;
+}
+/* Gumroad — ثانوي */
+.pay-gumroad {
   background: transparent;
   border: 1.5px solid var(--border2);
-  color: var(--text);
+  color: var(--dim); font-size: 14px;
 }
-.pay-card:hover { border-color: var(--gold); color: var(--gold); }
+.pay-gumroad:hover { border-color: rgba(247,183,49,.4); color: var(--text); }
 
 .modal-guarantee {
   text-align: center;

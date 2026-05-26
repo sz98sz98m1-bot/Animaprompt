@@ -2,6 +2,13 @@
    CONFIG — عدّل هنا لتخصيص الموقع
 ═══════════════════════════════════════ */
 const CONFIG = {
+  /* ── روابط Stripe Payment Links ── اذهب إلى dashboard.stripe.com > Products > Payment Links */
+  stripe: {
+    starter: '#', /* الصق رابط Stripe للباقة الأساسية  $29  هنا */
+    pro:     '#', /* الصق رابط Stripe للباقة الكاملة   $79  هنا */
+    studio:  '#'  /* الصق رابط Stripe لباقة الاستوديو  $149 هنا */
+  },
+  /* ── روابط Gumroad (احتياطي) ── */
   gumroad: {
     starter: 'https://animaprompt.gumroad.com/l/starter',
     pro:     'https://animaprompt.gumroad.com/l/pro',
@@ -333,8 +340,17 @@ function closeCheckout() {
   document.body.style.overflow = '';
 }
 function updatePayLinks() {
+  const stripeLink  = CONFIG.stripe[selectedPlan]  || '#';
   const gumroadLink = CONFIG.gumroad[selectedPlan] || '#';
-  document.getElementById('payGumroad').href = gumroadLink;
+  const stripeBtn  = document.getElementById('payStripe');
+  const gumroadBtn = document.getElementById('payGumroad');
+  if (stripeBtn)  stripeBtn.href  = stripeLink;
+  if (gumroadBtn) gumroadBtn.href = gumroadLink;
+  /* إذا لم يُضَف رابط Stripe بعد، أخفِ الزر */
+  if (stripeBtn)  stripeBtn.style.display = stripeLink === '#' ? 'none' : 'flex';
+  if (gumroadBtn) gumroadBtn.style.display = gumroadLink === '#' ? 'none' : 'flex';
+  /* أظهر Gumroad دائماً كاحتياطي إذا لم يوجد Stripe */
+  if (stripeLink === '#' && gumroadBtn) gumroadBtn.style.display = 'flex';
 }
 
 document.getElementById('checkoutClose').addEventListener('click', closeCheckout);
