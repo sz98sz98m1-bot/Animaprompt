@@ -1132,6 +1132,16 @@ canvas.hero-canvas {
   line-height: 1.7; margin-top: 10px;
 }
 
+/* ── AI GENERATOR NAV BUTTON ── */
+.nav-ai-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700;
+  color: #000; background: var(--gold);
+  padding: 7px 16px; border-radius: 20px;
+  transition: var(--tr);
+}
+.nav-ai-btn:hover { background: #fff; transform: translateY(-1px); }
+
 /* ── LOGIN NAV LINK ── */
 .nav-login {
   font-size: 13px; font-weight: 600;

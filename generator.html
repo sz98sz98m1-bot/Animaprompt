@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مولّد البرومبتات — AnimaPrompt AI</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Reem+Kufi:wght@600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #F7B731; --gold2: #d4960f;
+      --black: #080808; --surface: #0e0e0e; --card: #141414; --card2: #1c1c1c;
+      --border: #1f1f1f; --border2: #2a2a2a;
+      --white: #ffffff; --text: rgba(255,255,255,0.65); --dim: rgba(255,255,255,0.28);
+      --green: #10b981; --red: #ef4444;
+      --tr: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      --radius: 18px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--black); color: var(--white);
+      min-height: 100vh; -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,8,8,0.9); backdrop-filter: blur(20px);
+    }
+    .nav-logo { font-family: 'Reem Kufi', sans-serif; font-size: 22px; font-weight: 700; }
+    .nav-logo span { color: var(--gold); }
+    .nav-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(247,183,49,.08); border: 1px solid rgba(247,183,49,.2);
+      color: var(--gold); padding: 5px 14px; border-radius: 50px;
+      font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    .nav-badge .dot { width:6px; height:6px; border-radius:50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .nav-links { display: flex; align-items: center; gap: 16px; }
+    .nav-back {
+      font-size: 13px; color: var(--dim); border: 1px solid var(--border2);
+      padding: 6px 16px; border-radius: 20px; transition: var(--tr);
+    }
+    .nav-back:hover { color: var(--gold); border-color: var(--gold); }
+    .usage-pill {
+      font-family: 'Roboto Mono', monospace; font-size: 11px;
+      color: var(--dim); border: 1px solid var(--border2);
+      padding: 5px 12px; border-radius: 20px;
+    }
+    .usage-pill span { color: var(--gold); font-weight: 700; }
+
+    /* ── ACCESS GATE ── */
+    #accessGate {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 80vh; padding: 40px 20px;
+    }
+    .gate-box {
+      max-width: 440px; width: 100%; text-align: center;
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: 28px; padding: 48px 36px;
+    }
+    .gate-icon { font-size: 56px; display: block; margin-bottom: 16px; }
+    .gate-title { font-family: 'Reem Kufi', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .gate-sub { font-size: 14px; color: var(--text); line-height: 1.8; margin-bottom: 28px; }
+    .gate-input {
+      width: 100%; background: var(--surface); border: 1.5px solid var(--border2);
+      border-radius: 14px; padding: 14px 18px; color: var(--white);
+      font-family: 'Roboto Mono', monospace; font-size: 16px; letter-spacing: 3px;
+      text-align: center; outline: none; transition: var(--tr); margin-bottom: 14px;
+    }
+    .gate-input:focus { border-color: var(--gold); }
+    .gate-input::placeholder { color: var(--dim); letter-spacing: 1px; }
+    .gate-btn {
+      width: 100%; background: var(--gold); color: #000;
+      padding: 14px; border-radius: 14px; font-weight: 700; font-size: 15px;
+      transition: var(--tr); margin-bottom: 12px;
+    }
+    .gate-btn:hover { background: #fff; transform: translateY(-2px); }
+    .gate-error { font-size: 13px; color: var(--red); min-height: 20px; font-family: 'Roboto Mono', monospace; }
+    .gate-note { font-size: 12px; color: var(--dim); margin-top: 16px; line-height: 1.7; }
+    .gate-note a { color: var(--gold); }
+
+    /* ── MAIN GENERATOR ── */
+    #mainApp { display: none; }
+
+    .gen-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: 48px 24px 80px;
+      display: grid; grid-template-columns: 420px 1fr;
+      gap: 28px; align-items: start;
+    }
+    @media (max-width: 900px) { .gen-wrap { grid-template-columns: 1fr; } }
+
+    /* ── FORM PANEL ── */
+    .form-panel {
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: 24px; padding: 32px; position: sticky; top: 86px;
+    }
+    .form-header { margin-bottom: 28px; }
+    .form-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(247,183,49,.08); border: 1px solid rgba(247,183,49,.2);
+      color: var(--gold); padding: 4px 12px; border-radius: 50px;
+      font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .form-title { font-family: 'Reem Kufi', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .form-sub { font-size: 13px; color: var(--dim); line-height: 1.6; }
+
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block; font-size: 13px; font-weight: 700;
+      color: var(--text); margin-bottom: 7px;
+    }
+    .field label .req { color: var(--gold); margin-right: 2px; }
+    .field-hint { font-size: 11px; color: var(--dim); margin-bottom: 7px; display: block; font-family: 'Roboto Mono', monospace; }
+
+    .f-input, .f-textarea, .f-select {
+      width: 100%; background: var(--surface);
+      border: 1.5px solid var(--border2);
+      border-radius: 12px; padding: 12px 14px;
+      color: var(--white); font-family: 'Tajawal', sans-serif;
+      font-size: 14px; outline: none; transition: var(--tr);
+      appearance: none;
+    }
+    .f-input:focus, .f-textarea:focus, .f-select:focus { border-color: var(--gold); background: #111; }
+    .f-input::placeholder, .f-textarea::placeholder { color: var(--dim); }
+    .f-textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+    .f-select { cursor: pointer; }
+    .f-select option { background: #1a1a1a; }
+
+    .style-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    }
+    .style-btn {
+      padding: 10px 6px; border-radius: 10px; text-align: center;
+      border: 1.5px solid var(--border2); color: var(--dim);
+      font-size: 12px; font-weight: 600; transition: var(--tr);
+      cursor: pointer; background: var(--surface);
+    }
+    .style-btn .s-icon { display: block; font-size: 22px; margin-bottom: 4px; }
+    .style-btn:hover { border-color: rgba(247,183,49,.4); color: var(--white); }
+    .style-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(247,183,49,.06); }
+
+    .mood-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+    .mood-btn {
+      padding: 7px 14px; border-radius: 50px;
+      border: 1.5px solid var(--border2); color: var(--dim);
+      font-size: 12px; font-weight: 600; transition: var(--tr);
+      cursor: pointer; background: var(--surface);
+    }
+    .mood-btn:hover { border-color: rgba(247,183,49,.4); color: var(--white); }
+    .mood-btn.active { border-color: var(--gold); color: #000; background: var(--gold); }
+
+    .gen-btn {
+      width: 100%; padding: 16px; border-radius: 50px;
+      background: var(--gold); color: #000;
+      font-weight: 800; font-size: 16px;
+      transition: var(--tr); margin-top: 8px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      position: relative; overflow: hidden;
+    }
+    .gen-btn:hover:not(:disabled) { background: #fff; transform: translateY(-2px); box-shadow: 0 20px 50px rgba(247,183,49,.3); }
+    .gen-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .gen-btn .btn-spinner {
+      width: 20px; height: 20px; border: 2px solid rgba(0,0,0,.3);
+      border-top-color: #000; border-radius: 50%;
+      animation: spin .6s linear infinite; display: none;
+    }
+    .gen-btn.loading .btn-spinner { display: block; }
+    .gen-btn.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── OUTPUT PANEL ── */
+    .output-panel { display: flex; flex-direction: column; gap: 20px; }
+
+    .empty-state {
+      background: var(--card); border: 1px dashed var(--border2);
+      border-radius: 24px; padding: 60px 40px; text-align: center;
+    }
+    .empty-icon { font-size: 56px; margin-bottom: 16px; display: block; }
+    .empty-title { font-family: 'Reem Kufi', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .empty-sub { font-size: 14px; color: var(--dim); line-height: 1.7; max-width: 320px; margin: 0 auto; }
+
+    .result-header {
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: 16px; padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .result-meta { font-size: 13px; color: var(--dim); }
+    .result-meta strong { color: var(--white); }
+    .result-actions { display: flex; gap: 8px; }
+    .copy-all-btn {
+      font-size: 12px; padding: 6px 14px; border-radius: 20px;
+      border: 1px solid var(--border2); color: var(--dim);
+      transition: var(--tr);
+    }
+    .copy-all-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    .prompt-card {
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: 20px; overflow: hidden;
+      transition: var(--tr);
+    }
+    .prompt-card:hover { border-color: rgba(247,183,49,.25); }
+    .pc-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pc-tool { display: flex; align-items: center; gap: 12px; }
+    .pc-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; flex-shrink: 0;
+    }
+    .pc-logo.mj { background: linear-gradient(135deg, #4a4a4a, #111); font-size: 13px; color: #fff; font-family: 'Roboto Mono', monospace; }
+    .pc-logo.gpt { background: linear-gradient(135deg, #10a37f, #059669); }
+    .pc-logo.rw { background: linear-gradient(135deg, #F7B731, #d4960f); }
+    .pc-logo.pk { background: linear-gradient(135deg, #e94560, #c02040); }
+    .pc-name { font-size: 15px; font-weight: 700; }
+    .pc-desc { font-size: 12px; color: var(--dim); margin-top: 2px; }
+    .copy-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700;
+      color: var(--dim); border: 1px solid var(--border2);
+      padding: 7px 14px; border-radius: 20px;
+      transition: var(--tr); white-space: nowrap; flex-shrink: 0;
+    }
+    .copy-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+    .pc-body { padding: 20px; }
+    .pc-prompt {
+      font-family: 'Roboto Mono', monospace; font-size: 12.5px;
+      line-height: 1.75; color: var(--text);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px;
+      white-space: pre-wrap; word-break: break-word;
+      user-select: all;
+    }
+    .pc-negative {
+      margin-top: 10px;
+      font-family: 'Roboto Mono', monospace; font-size: 11px;
+      color: var(--dim); background: rgba(239,68,68,.05);
+      border: 1px solid rgba(239,68,68,.15);
+      border-radius: 8px; padding: 10px 14px;
+    }
+    .pc-negative-label { font-size: 10px; color: rgba(239,68,68,.6); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; display: block; }
+
+    /* ── ERROR TOAST ── */
+    .toast {
+      position: fixed; bottom: 32px; right: 32px; left: 32px;
+      max-width: 420px; margin: 0 auto;
+      background: #1a0a0a; border: 1px solid rgba(239,68,68,.3);
+      border-radius: 14px; padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: var(--red);
+      transform: translateY(80px); opacity: 0;
+      transition: all .35s cubic-bezier(.4,0,.2,1);
+      z-index: 500;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* ── HISTORY ── */
+    .history-section {
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: 20px; padding: 20px;
+    }
+    .history-title { font-size: 14px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+    .history-list { display: flex; flex-direction: column; gap: 8px; }
+    .history-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 10px 14px; border-radius: 10px;
+      border: 1px solid var(--border); cursor: pointer;
+      transition: var(--tr); font-size: 13px;
+    }
+    .history-item:hover { border-color: rgba(247,183,49,.3); }
+    .history-char { color: var(--text); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .history-time { font-family: 'Roboto Mono', monospace; font-size: 10px; color: var(--dim); flex-shrink: 0; }
+
+    /* ── PLAN UPGRADE CTA ── */
+    .upgrade-cta {
+      background: rgba(247,183,49,.06); border: 1px solid rgba(247,183,49,.2);
+      border-radius: 16px; padding: 18px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      flex-wrap: wrap;
+    }
+    .upgrade-text { font-size: 13px; color: var(--text); }
+    .upgrade-text strong { color: var(--gold); }
+    .upgrade-btn {
+      font-size: 12px; font-weight: 700; color: #000;
+      background: var(--gold); padding: 8px 18px; border-radius: 20px;
+      transition: var(--tr); white-space: nowrap; flex-shrink: 0;
+    }
+    .upgrade-btn:hover { background: #fff; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--dim);
+      font-family: 'Roboto Mono', monospace;
+    }
+    footer a { color: var(--dim); transition: var(--tr); }
+    footer a:hover { color: var(--gold); }
+
+    @media (max-width: 600px) {
+      .navbar { padding: 14px 16px; }
+      .gen-wrap { padding: 24px 16px 60px; }
+      .form-panel { padding: 24px 20px; }
+      .style-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════ NAVBAR ═══════ -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Anima<span>Prompt</span> <span style="font-size:13px;color:var(--gold);font-family:'Roboto Mono',monospace"> AI</span></a>
+  <div class="nav-badge" id="planBadge" style="display:none">
+    <span class="dot"></span>
+    <span id="planBadgeText">STARTER</span>
+  </div>
+  <div class="nav-links">
+    <div class="usage-pill" id="usagePill" style="display:none">
+      توليد اليوم: <span id="usageCount">0</span>/<span id="usageLimit">5</span>
+    </div>
+    <a href="index.html" class="nav-back">← الرئيسية</a>
+  </div>
+</nav>
+
+<!-- ═══════ ACCESS GATE ═══════ -->
+<div id="accessGate">
+  <div class="gate-box">
+    <span class="gate-icon">🤖</span>
+    <h1 class="gate-title">مولّد البرومبتات بالـ AI</h1>
+    <p class="gate-sub">أدخل كود اشتراكك للوصول إلى المولّد الذكي وتوليد برومبتات مخصصة لكارتونك</p>
+    <input type="text" class="gate-input" id="gateInput" placeholder="XXXX0000" maxlength="10" autocomplete="off">
+    <button class="gate-btn" id="gateBtn">دخول إلى المولّد ←</button>
+    <div class="gate-error" id="gateError"></div>
+    <p class="gate-note">
+      ليس لديك اشتراك؟ <a href="index.html#pricing">اشترِ الآن</a><br>
+      مشكلة في الكود؟ <a href="https://t.me/animaprompt" target="_blank">تواصل معنا</a>
+    </p>
+  </div>
+</div>
+
+<!-- ═══════ MAIN APP ═══════ -->
+<div id="mainApp">
+  <div class="gen-wrap">
+
+    <!-- FORM PANEL -->
+    <div class="form-panel">
+      <div class="form-header">
+        <div class="form-tag">✦ AI Generator</div>
+        <h2 class="form-title">صمّم برومبتك</h2>
+        <p class="form-sub">أدخل تفاصيل كارتونك وسيولّد الذكاء الاصطناعي برومبتات جاهزة لكل أداة</p>
+      </div>
+
+      <!-- Character -->
+      <div class="field">
+        <label><span class="req">*</span> وصف الشخصية</label>
+        <span class="field-hint">كن محدداً: الملابس، الملامح، الحجم، الشخصية</span>
+        <textarea class="f-textarea" id="fCharacter" placeholder="مثال: فتى عربي بعمر 10 سنوات، يرتدي ثوباً أبيض ومشلح بني، شعر أسود كثيف، عيون واسعة بنية اللون، تعبير وجه مرح ومفعم بالنشاط" rows="4"></textarea>
+      </div>
+
+      <!-- Art Style -->
+      <div class="field">
+        <label><span class="req">*</span> أسلوب الرسم</label>
+        <div class="style-grid" id="styleGrid">
+          <button class="style-btn active" data-style="Pixar 3D CGI"><span class="s-icon">🎬</span>Pixar 3D</button>
+          <button class="style-btn" data-style="Studio Ghibli anime"><span class="s-icon">🌸</span>Ghibli</button>
+          <button class="style-btn" data-style="Modern anime style"><span class="s-icon">⚡</span>Anime</button>
+          <button class="style-btn" data-style="Classic Disney cartoon"><span class="s-icon">✨</span>Disney</button>
+          <button class="style-btn" data-style="Flat 2D cartoon illustration"><span class="s-icon">🎨</span>2D Flat</button>
+          <button class="style-btn" data-style="Arabic folk art cartoon"><span class="s-icon">🕌</span>عربي</button>
+        </div>
+      </div>
+
+      <!-- Scene -->
+      <div class="field">
+        <label><span class="req">*</span> المشهد / المكان</label>
+        <input type="text" class="f-input" id="fScene" placeholder="مثال: سوق شعبي قديم في المغرب العربي، ليلاً مع إضاءة خيالية">
+      </div>
+
+      <!-- Action -->
+      <div class="field">
+        <label>الحركة / الفعل</label>
+        <input type="text" class="f-input" id="fAction" placeholder="مثال: يركض مبتسماً بين الأزقة ويمسك بكتاب قديم">
+      </div>
+
+      <!-- Mood -->
+      <div class="field">
+        <label><span class="req">*</span> المزاج / الإحساس</label>
+        <div class="mood-grid" id="moodGrid">
+          <button class="mood-btn active" data-mood="Epic and adventurous">🗡 ملحمي</button>
+          <button class="mood-btn" data-mood="Funny and playful">😄 مرح</button>
+          <button class="mood-btn" data-mood="Dramatic and emotional">🎭 درامي</button>
+          <button class="mood-btn" data-mood="Calm and peaceful">🌿 هادئ</button>
+          <button class="mood-btn" data-mood="Mysterious and magical">🔮 غامض</button>
+          <button class="mood-btn" data-mood="Action-packed intense">💥 مكثّف</button>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="field">
+        <label>ملاحظات إضافية <span style="color:var(--dim);font-size:11px">(اختياري)</span></label>
+        <textarea class="f-textarea" id="fNotes" placeholder="أي تفاصيل إضافية: ألوان معينة، مؤثرات، قيود..." rows="2"></textarea>
+      </div>
+
+      <button class="gen-btn" id="genBtn">
+        <div class="btn-spinner"></div>
+        <span class="btn-text">✦ توليد البرومبتات الآن</span>
+      </button>
+    </div>
+
+    <!-- OUTPUT PANEL -->
+    <div class="output-panel" id="outputPanel">
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState">
+        <span class="empty-icon">🎬</span>
+        <h3 class="empty-title">جاهز للتوليد</h3>
+        <p class="empty-sub">املأ النموذج واضغط "توليد البرومبتات" — سيصلك 4 برومبتات مخصصة جاهزة للنسخ مباشرة</p>
+      </div>
+
+      <!-- Result cards (hidden initially) -->
+      <div id="resultWrap" style="display:none; display:flex; flex-direction:column; gap:16px;">
+
+        <div class="result-header" id="resultHeader" style="display:none">
+          <div class="result-meta">
+            تم توليد <strong>4 برومبتات</strong> لـ <strong id="resultCharName">—</strong>
+          </div>
+          <button class="copy-all-btn" id="copyAllBtn">📋 نسخ الكل</button>
+        </div>
+
+        <!-- Midjourney -->
+        <div class="prompt-card" id="card-mj" style="display:none">
+          <div class="pc-head">
+            <div class="pc-tool">
+              <div class="pc-logo mj">MJ</div>
+              <div>
+                <div class="pc-name">Midjourney</div>
+                <div class="pc-desc" id="desc-mj">لتوليد صورة الشخصية</div>
+              </div>
+            </div>
+            <button class="copy-btn" data-target="prompt-mj">📋 نسخ</button>
+          </div>
+          <div class="pc-body">
+            <div class="pc-prompt" id="prompt-mj"></div>
+            <div class="pc-negative" id="neg-mj" style="display:none">
+              <span class="pc-negative-label">Negative / Parameters</span>
+              <span id="neg-mj-text"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ChatGPT -->
+        <div class="prompt-card" id="card-gpt" style="display:none">
+          <div class="pc-head">
+            <div class="pc-tool">
+              <div class="pc-logo gpt">🤖</div>
+              <div>
+                <div class="pc-name">ChatGPT / Claude</div>
+                <div class="pc-desc" id="desc-gpt">لكتابة السكريبت والقصة</div>
+              </div>
+            </div>
+            <button class="copy-btn" data-target="prompt-gpt">📋 نسخ</button>
+          </div>
+          <div class="pc-body">
+            <div class="pc-prompt" id="prompt-gpt"></div>
+          </div>
+        </div>
+
+        <!-- Runway -->
+        <div class="prompt-card" id="card-rw" style="display:none">
+          <div class="pc-head">
+            <div class="pc-tool">
+              <div class="pc-logo rw">🎥</div>
+              <div>
+                <div class="pc-name">Runway Gen-4</div>
+                <div class="pc-desc" id="desc-rw">لتوليد الفيديو السينمائي</div>
+              </div>
+            </div>
+            <button class="copy-btn" data-target="prompt-rw">📋 نسخ</button>
+          </div>
+          <div class="pc-body">
+            <div class="pc-prompt" id="prompt-rw"></div>
+          </div>
+        </div>
+
+        <!-- Pika/Kling -->
+        <div class="prompt-card" id="card-pk" style="display:none">
+          <div class="pc-head">
+            <div class="pc-tool">
+              <div class="pc-logo pk">🎭</div>
+              <div>
+                <div class="pc-name">Pika / Kling</div>
+                <div class="pc-desc" id="desc-pk">للحركة والأنيميشن</div>
+              </div>
+            </div>
+            <button class="copy-btn" data-target="prompt-pk">📋 نسخ</button>
+          </div>
+          <div class="pc-body">
+            <div class="pc-prompt" id="prompt-pk"></div>
+          </div>
+        </div>
+
+        <!-- Upgrade CTA for starter -->
+        <div class="upgrade-cta" id="upgradeCta" style="display:none">
+          <div class="upgrade-text">
+            <strong>ترقّى للباقة Pro</strong> — احصل على 25 توليد/يوم + أولوية في الاستجابة
+          </div>
+          <a href="index.html#pricing" class="upgrade-btn">ترقّى الآن ←</a>
+        </div>
+
+      </div>
+
+      <!-- History -->
+      <div class="history-section" id="historySection" style="display:none">
+        <div class="history-title">⏱ آخر التوليدات</div>
+        <div class="history-list" id="historyList"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">⚠️</span>
+  <span id="toastMsg">حدث خطأ</span>
+</div>
+
+<footer>
+  <span>© 2026 AnimaPrompt · AI Generator</span> &nbsp;·&nbsp;
+  <a href="privacy.html">الخصوصية</a> &nbsp;·&nbsp;
+  <a href="terms.html">الشروط</a>
+</footer>
+
+<script>
+/* ─────────────────────────────────────────
+   CONFIG
+───────────────────────────────────────── */
+const PLAN_LIMITS = { starter: 5, pro: 25, studio: 100 };
+const PLAN_LABELS = { starter: 'STARTER', pro: 'PRO ✦', studio: 'STUDIO' };
+const VALID_CODES = { 'CHAR2026': 'starter', 'FULL2026': 'pro', 'STUD2026': 'studio' };
+
+let currentPlan = null;
+let currentCode = null;
+let selectedStyle = 'Pixar 3D CGI';
+let selectedMood  = 'Epic and adventurous';
+let generationHistory = JSON.parse(localStorage.getItem('ap_gen_history') || '[]');
+
+/* ─────────────────────────────────────────
+   ACCESS GATE
+───────────────────────────────────────── */
+function initAccess() {
+  const stored = localStorage.getItem('ap_access');
+  if (stored && VALID_CODES[stored]) {
+    unlockApp(stored, VALID_CODES[stored]);
+    return;
+  }
+  document.getElementById('gateInput').focus();
+}
+
+document.getElementById('gateBtn').addEventListener('click', tryGateCode);
+document.getElementById('gateInput').addEventListener('keydown', e => { if (e.key === 'Enter') tryGateCode(); });
+
+function tryGateCode() {
+  const code = document.getElementById('gateInput').value.trim().toUpperCase();
+  const errEl = document.getElementById('gateError');
+  const plan = VALID_CODES[code];
+  if (plan) {
+    errEl.textContent = '';
+    localStorage.setItem('ap_access', code);
+    unlockApp(code, plan);
+  } else {
+    errEl.textContent = '❌ الكود غير صحيح. تحقق من بريدك الإلكتروني.';
+    document.getElementById('gateInput').style.borderColor = '#ef4444';
+    setTimeout(() => { document.getElementById('gateInput').style.borderColor = ''; }, 2000);
+  }
+}
+
+function unlockApp(code, plan) {
+  currentCode = code;
+  currentPlan = plan;
+  document.getElementById('accessGate').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+
+  /* Update plan badge */
+  const badge = document.getElementById('planBadge');
+  const badgeText = document.getElementById('planBadgeText');
+  badge.style.display = 'flex';
+  badgeText.textContent = PLAN_LABELS[plan] || plan.toUpperCase();
+
+  /* Update usage pill */
+  updateUsagePill();
+
+  /* Show upgrade CTA for starter */
+  if (plan === 'starter') {
+    document.getElementById('upgradeCta').style.display = 'flex';
+  }
+
+  /* Load history */
+  renderHistory();
+}
+
+/* ─────────────────────────────────────────
+   USAGE TRACKING (localStorage)
+───────────────────────────────────────── */
+function getTodayKey() {
+  return 'ap_usage_' + new Date().toISOString().split('T')[0];
+}
+function getUsedToday() {
+  return parseInt(localStorage.getItem(getTodayKey()) || '0');
+}
+function incrementUsage() {
+  const key = getTodayKey();
+  localStorage.setItem(key, getUsedToday() + 1);
+  updateUsagePill();
+}
+function updateUsagePill() {
+  if (!currentPlan) return;
+  const used = getUsedToday();
+  const limit = PLAN_LIMITS[currentPlan] || 5;
+  const pill = document.getElementById('usagePill');
+  pill.style.display = 'block';
+  document.getElementById('usageCount').textContent = used;
+  document.getElementById('usageLimit').textContent = limit;
+  if (used >= limit) {
+    pill.style.borderColor = 'rgba(239,68,68,.4)';
+    pill.style.color = '#ef4444';
+  }
+}
+
+/* ─────────────────────────────────────────
+   STYLE / MOOD SELECTORS
+───────────────────────────────────────── */
+document.querySelectorAll('#styleGrid .style-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#styleGrid .style-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedStyle = btn.dataset.style;
+  });
+});
+
+document.querySelectorAll('#moodGrid .mood-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#moodGrid .mood-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedMood = btn.dataset.mood;
+  });
+});
+
+/* ─────────────────────────────────────────
+   GENERATE
+───────────────────────────────────────── */
+document.getElementById('genBtn').addEventListener('click', generate);
+
+async function generate() {
+  const character = document.getElementById('fCharacter').value.trim();
+  const scene     = document.getElementById('fScene').value.trim();
+  const action    = document.getElementById('fAction').value.trim();
+  const notes     = document.getElementById('fNotes').value.trim();
+
+  /* Validate */
+  if (character.length < 5) return showToast('أدخل وصف الشخصية (5 أحرف على الأقل)');
+  if (!scene) return showToast('أدخل وصف المشهد أو المكان');
+
+  /* Daily limit check */
+  const used  = getUsedToday();
+  const limit = PLAN_LIMITS[currentPlan] || 5;
+  if (used >= limit) {
+    return showToast(`تجاوزت الحد اليومي (${limit} توليد/يوم) — يتجدد يومياً`);
+  }
+
+  /* UI loading state */
+  const btn = document.getElementById('genBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  hideResults();
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        character, style: selectedStyle,
+        scene, action, mood: selectedMood, notes,
+        accessCode: currentCode
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.message || 'حدث خطأ في التوليد');
+    }
+
+    displayResults(data.prompts, character);
+    incrementUsage();
+    saveHistory(character, selectedStyle, data.prompts);
+
+  } catch (err) {
+    showToast(err.message || 'خطأ في الاتصال بالخادم — تحقق من اتصالك وحاول مجدداً');
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+/* ─────────────────────────────────────────
+   DISPLAY RESULTS
+───────────────────────────────────────── */
+function displayResults(prompts, character) {
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('resultWrap').style.display = 'flex';
+  document.getElementById('resultHeader').style.display = 'flex';
+
+  const charName = character.length > 40 ? character.slice(0, 40) + '…' : character;
+  document.getElementById('resultCharName').textContent = charName;
+
+  /* Midjourney */
+  setCard('mj', prompts.midjourney);
+  /* ChatGPT */
+  setCard('gpt', prompts.chatgpt);
+  /* Runway */
+  setCard('rw', prompts.runway);
+  /* Pika */
+  setCard('pk', prompts.pika);
+
+  /* Scroll to results on mobile */
+  if (window.innerWidth < 900) {
+    setTimeout(() => {
+      document.getElementById('outputPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+}
+
+function setCard(id, data) {
+  if (!data) return;
+  document.getElementById('card-' + id).style.display = 'block';
+  document.getElementById('prompt-' + id).textContent = data.prompt || '';
+  document.getElementById('desc-' + id).textContent   = data.desc   || '';
+  if (id === 'mj' && data.negative) {
+    document.getElementById('neg-mj').style.display = 'block';
+    document.getElementById('neg-mj-text').textContent = data.negative;
+  }
+}
+
+function hideResults() {
+  ['mj','gpt','rw','pk'].forEach(id => {
+    document.getElementById('card-' + id).style.display = 'none';
+    const neg = document.getElementById('neg-mj');
+    if (neg) neg.style.display = 'none';
+  });
+  document.getElementById('resultHeader').style.display = 'none';
+}
+
+/* ─────────────────────────────────────────
+   COPY BUTTONS
+───────────────────────────────────────── */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.copy-btn[data-target]');
+  if (!btn) return;
+  const el = document.getElementById(btn.dataset.target);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    btn.textContent = '✓ تم النسخ';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 نسخ';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+});
+
+document.getElementById('copyAllBtn').addEventListener('click', () => {
+  const all = ['prompt-mj','prompt-gpt','prompt-rw','prompt-pk']
+    .map(id => {
+      const el = document.getElementById(id);
+      const card = el?.closest('.prompt-card');
+      const name = card?.querySelector('.pc-name')?.textContent || '';
+      return el ? `=== ${name} ===\n${el.textContent}` : '';
+    })
+    .filter(Boolean).join('\n\n');
+  navigator.clipboard.writeText(all).then(() => {
+    const btn = document.getElementById('copyAllBtn');
+    btn.textContent = '✓ تم نسخ الكل';
+    setTimeout(() => { btn.textContent = '📋 نسخ الكل'; }, 2500);
+  });
+});
+
+/* ─────────────────────────────────────────
+   HISTORY
+───────────────────────────────────────── */
+function saveHistory(character, style, prompts) {
+  const entry = {
+    character: character.slice(0, 60),
+    style,
+    prompts,
+    time: new Date().toLocaleTimeString('ar', { hour: '2-digit', minute: '2-digit' })
+  };
+  generationHistory.unshift(entry);
+  if (generationHistory.length > 5) generationHistory.pop();
+  localStorage.setItem('ap_gen_history', JSON.stringify(generationHistory));
+  renderHistory();
+}
+
+function renderHistory() {
+  const section = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  if (!generationHistory.length) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  list.innerHTML = generationHistory.map((h, i) => `
+    <div class="history-item" data-idx="${i}">
+      <span class="history-char">${h.character}</span>
+      <span class="history-time">${h.time}</span>
+    </div>
+  `).join('');
+  list.querySelectorAll('.history-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const h = generationHistory[item.dataset.idx];
+      if (h) {
+        displayResults(h.prompts, h.character);
+        document.getElementById('fCharacter').value = h.character;
+      }
+    });
+  });
+}
+
+/* ─────────────────────────────────────────
+   TOAST
+───────────────────────────────────────── */
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
+/* ─────────────────────────────────────────
+   INIT
+───────────────────────────────────────── */
+initAccess();
+</script>
+</body>
+</html>
