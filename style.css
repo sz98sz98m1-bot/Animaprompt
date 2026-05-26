@@ -925,3 +925,209 @@ canvas.hero-canvas {
   .stats-grid { grid-template-columns: 1fr; }
   .footer-links-group { grid-template-columns: 1fr; }
 }
+
+/* ── TOUCH / HOVER:NONE — hide custom cursor ── */
+@media (hover: none) {
+  body { cursor: auto; }
+  .cursor, .cursor-trail { display: none !important; }
+}
+
+/* ── LANG TOGGLE ── */
+.lang-toggle {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  color: var(--dim);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 5px 12px;
+  transition: var(--tr);
+  cursor: pointer;
+}
+.lang-toggle:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ── MODAL OVERLAY ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,.88);
+  backdrop-filter: blur(14px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease;
+}
+.modal-overlay.show { opacity: 1; pointer-events: all; }
+
+.modal-box {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 28px;
+  padding: 40px 36px;
+  max-width: 660px; width: 100%;
+  position: relative;
+  max-height: 90vh; overflow-y: auto;
+  animation: modalSlideUp .35s ease;
+}
+@keyframes modalSlideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.modal-close {
+  position: absolute; top: 20px; left: 20px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  color: var(--dim); font-size: 20px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--tr); cursor: pointer;
+}
+.modal-close:hover { border-color: var(--gold); color: var(--gold); }
+
+.modal-title {
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 26px; font-weight: 700;
+  text-align: center; margin-bottom: 6px;
+}
+.modal-sub {
+  font-size: 14px; color: var(--dim);
+  text-align: center; margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* ── MODAL PLANS ── */
+.modal-plans {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 24px;
+}
+@media (max-width: 560px) {
+  .modal-plans { grid-template-columns: 1fr; }
+}
+.modal-plan {
+  border: 1.5px solid var(--border2);
+  border-radius: 18px;
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: var(--tr);
+  text-align: center;
+  position: relative;
+}
+.modal-plan:hover { border-color: rgba(247,183,49,.5); }
+.modal-plan.selected {
+  border-color: var(--gold);
+  background: rgba(247,183,49,.05);
+}
+.mp-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: #000;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 9px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  white-space: nowrap;
+}
+.mp-name {
+  font-size: 13px; font-weight: 700;
+  margin-bottom: 6px; color: var(--white);
+}
+.mp-price {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 22px; font-weight: 700;
+  color: var(--gold); margin-bottom: 4px;
+  direction: ltr; display: block;
+}
+.mp-note {
+  font-size: 11px; color: var(--dim); line-height: 1.5;
+}
+
+/* ── PAYMENT BUTTONS ── */
+.modal-pay-methods {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-bottom: 16px;
+}
+.pay-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; padding: 16px 24px;
+  border-radius: 50px; font-weight: 700; font-size: 15px;
+  transition: var(--tr); cursor: pointer; width: 100%;
+  border: none; font-family: inherit;
+}
+.pay-gumroad {
+  background: var(--gold); color: #000;
+}
+.pay-gumroad:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 16px 40px rgba(247,183,49,.25); }
+.pay-card {
+  background: transparent;
+  border: 1.5px solid var(--border2);
+  color: var(--text);
+}
+.pay-card:hover { border-color: var(--gold); color: var(--gold); }
+
+.modal-guarantee {
+  text-align: center;
+  font-size: 12px; color: var(--dim);
+  font-family: 'Roboto Mono', monospace;
+  line-height: 1.6;
+}
+
+/* ── ACCESS MODAL ── */
+.access-box {
+  max-width: 420px;
+  text-align: center;
+}
+.modal-icon {
+  font-size: 52px; margin-bottom: 12px;
+  display: block;
+}
+.access-title {
+  font-family: 'Reem Kufi', sans-serif;
+  font-size: 22px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.access-desc {
+  font-size: 14px; color: var(--dim);
+  line-height: 1.7; margin-bottom: 24px;
+}
+.access-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border2);
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: var(--white);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 16px; letter-spacing: 3px;
+  text-align: center;
+  outline: none;
+  transition: var(--tr);
+  margin-bottom: 14px;
+}
+.access-input:focus { border-color: var(--gold); }
+.access-input::placeholder { color: var(--dim); letter-spacing: 1px; }
+.access-submit {
+  width: 100%;
+  background: var(--gold); color: #000;
+  padding: 14px; border-radius: 14px;
+  font-weight: 700; font-size: 15px;
+  transition: var(--tr); cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 12px;
+}
+.access-submit:hover { background: #fff; transform: translateY(-2px); }
+.access-error {
+  font-size: 13px; color: #ef4444;
+  min-height: 20px;
+  font-family: 'Roboto Mono', monospace;
+}
+.access-note {
+  font-size: 12px; color: var(--dim);
+  line-height: 1.7; margin-top: 10px;
+}
+
+/* ── LOGIN NAV LINK ── */
+.nav-login {
+  font-size: 13px; font-weight: 600;
+  color: var(--dim);
+  border: 1px solid var(--border2);
+  padding: 6px 16px; border-radius: 20px;
+  transition: var(--tr);
+}
+.nav-login:hover { color: var(--gold); border-color: var(--gold); }

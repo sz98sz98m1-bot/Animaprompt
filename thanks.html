@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شكراً لك — AnimaPrompt</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Reem+Kufi:wght@600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #F7B731; --black: #080808; --surface: #0e0e0e;
+      --card: #141414; --border2: #2a2a2a;
+      --white: #ffffff; --text: rgba(255,255,255,0.65); --dim: rgba(255,255,255,0.28);
+      --tr: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--black); color: var(--white);
+      min-height: 100vh; display: flex; flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    .navbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .nav-logo { font-family: 'Reem Kufi', sans-serif; font-size: 22px; font-weight: 700; }
+    .nav-logo span { color: var(--gold); }
+    .nav-back {
+      font-size: 13px; color: var(--dim); border: 1px solid var(--border2);
+      padding: 6px 16px; border-radius: 20px; transition: var(--tr);
+    }
+    .nav-back:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* MAIN */
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 20px; }
+
+    /* ACCESS GATE */
+    #access-gate, #download-page { max-width: 480px; width: 100%; }
+
+    .gate-icon { font-size: 64px; text-align: center; display: block; margin-bottom: 16px; }
+    .gate-title {
+      font-family: 'Reem Kufi', sans-serif; font-size: 28px; font-weight: 700;
+      text-align: center; margin-bottom: 8px;
+    }
+    .gate-sub {
+      font-size: 15px; color: var(--text); text-align: center;
+      line-height: 1.8; margin-bottom: 28px;
+    }
+    .gate-input {
+      width: 100%; background: var(--surface);
+      border: 1.5px solid var(--border2); border-radius: 14px;
+      padding: 15px 20px; color: var(--white);
+      font-family: 'Roboto Mono', monospace; font-size: 16px;
+      letter-spacing: 3px; text-align: center; outline: none;
+      transition: var(--tr); margin-bottom: 14px;
+    }
+    .gate-input:focus { border-color: var(--gold); }
+    .gate-input::placeholder { color: var(--dim); letter-spacing: 1px; }
+    .gate-btn {
+      width: 100%; background: var(--gold); color: #000;
+      padding: 15px; border-radius: 14px; font-weight: 700;
+      font-size: 15px; border: none; cursor: pointer;
+      font-family: inherit; transition: var(--tr); margin-bottom: 12px;
+    }
+    .gate-btn:hover { background: #fff; transform: translateY(-2px); }
+    .gate-error {
+      font-size: 13px; color: #ef4444; text-align: center;
+      min-height: 20px; font-family: 'Roboto Mono', monospace;
+    }
+    .gate-note {
+      font-size: 12px; color: var(--dim); text-align: center;
+      line-height: 1.7; margin-top: 16px;
+    }
+
+    /* DOWNLOAD PAGE */
+    #download-page { display: none; }
+    .dl-header { text-align: center; margin-bottom: 40px; }
+    .dl-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(247,183,49,.1); border: 1px solid rgba(247,183,49,.25);
+      color: var(--gold); padding: 6px 16px; border-radius: 50px;
+      font-family: 'Roboto Mono', monospace; font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .dl-title {
+      font-family: 'Reem Kufi', sans-serif; font-size: 32px; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .dl-sub { font-size: 15px; color: var(--text); line-height: 1.7; }
+
+    .dl-plan-label {
+      font-family: 'Roboto Mono', monospace; font-size: 10px;
+      letter-spacing: 2px; color: var(--gold); text-transform: uppercase;
+      margin-bottom: 16px; display: block;
+    }
+    .dl-files { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .dl-file {
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: 16px; padding: 18px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      transition: var(--tr);
+    }
+    .dl-file:hover { border-color: rgba(247,183,49,.35); }
+    .dl-file-info { display: flex; align-items: center; gap: 14px; }
+    .dl-file-icon { font-size: 28px; flex-shrink: 0; }
+    .dl-file-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .dl-file-meta { font-size: 12px; color: var(--dim); font-family: 'Roboto Mono', monospace; }
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: #000; padding: 10px 20px;
+      border-radius: 50px; font-weight: 700; font-size: 13px;
+      border: none; cursor: pointer; font-family: inherit;
+      transition: var(--tr); white-space: nowrap; flex-shrink: 0;
+      text-decoration: none;
+    }
+    .dl-btn:hover { background: #fff; transform: translateY(-2px); }
+    .dl-btn.locked {
+      background: transparent; color: var(--dim);
+      border: 1px solid var(--border2); cursor: not-allowed;
+    }
+
+    .dl-instructions {
+      background: rgba(247,183,49,.06); border: 1px solid rgba(247,183,49,.15);
+      border-radius: 16px; padding: 20px;
+    }
+    .dl-instructions h3 { font-size: 15px; font-weight: 700; margin-bottom: 14px; color: var(--gold); }
+    .dl-instructions ol { padding-right: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .dl-instructions li { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+    .dl-support {
+      text-align: center; margin-top: 28px;
+      font-size: 13px; color: var(--dim); line-height: 1.7;
+    }
+    .dl-support a { color: var(--gold); }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 24px;
+      border-top: 1px solid var(--border2);
+      font-size: 12px; color: var(--dim);
+      font-family: 'Roboto Mono', monospace;
+    }
+    footer a { color: var(--dim); transition: var(--tr); }
+    footer a:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-logo">Anima<span>Prompt</span></div>
+    <a href="index.html" class="nav-back">← الرئيسية</a>
+  </nav>
+
+  <main>
+    <!-- ACCESS GATE -->
+    <div id="access-gate">
+      <span class="gate-icon">🔐</span>
+      <h1 class="gate-title">أدخل كود الوصول</h1>
+      <p class="gate-sub">الكود يصلك بعد إتمام عملية الشراء عبر بريدك الإلكتروني من Gumroad</p>
+      <input type="text" class="gate-input" id="gateInput" placeholder="XXXX0000" maxlength="10" autocomplete="off">
+      <button class="gate-btn" id="gateBtn">دخول ←</button>
+      <div class="gate-error" id="gateError"></div>
+      <p class="gate-note">
+        لم تشترِ بعد؟ <a href="index.html#pricing" style="color:var(--gold)">اختر باقتك الآن</a><br>
+        مشكلة في الكود؟ <a href="https://t.me/animaprompt" style="color:var(--gold)" target="_blank">تواصل معنا</a>
+      </p>
+    </div>
+
+    <!-- DOWNLOAD PAGE (shown after valid code) -->
+    <div id="download-page">
+      <div class="dl-header">
+        <div class="dl-badge">✦ تم التحقق بنجاح</div>
+        <h1 class="dl-title">مرحباً بك في AnimaPrompt 🎉</h1>
+        <p class="dl-sub">حمّل ملفاتك أدناه — تأكد من حفظها في مكان آمن</p>
+      </div>
+
+      <span class="dl-plan-label" id="planLabel">الباقة: —</span>
+
+      <div class="dl-files" id="dlFiles">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="dl-instructions">
+        <h3>📋 كيفية الاستخدام</h3>
+        <ol>
+          <li>حمّل الملفات المضغوطة واستخرجها على جهازك</li>
+          <li>افتح ملف PDF الخاص بالباقة لقراءة دليل الاستخدام الكامل</li>
+          <li>انسخ البرومبت المناسب واستخدمه في أداة الذكاء الاصطناعي</li>
+          <li>اطّلع على قسم أدوات الـ AI في الموقع للحصول على أفضل النتائج</li>
+        </ol>
+      </div>
+
+      <p class="dl-support">
+        هل تحتاج مساعدة؟ تواصل معنا عبر
+        <a href="https://t.me/animaprompt" target="_blank">تيليغرام</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2026 AnimaPrompt</span> &nbsp;·&nbsp;
+    <a href="privacy.html">الخصوصية</a> &nbsp;·&nbsp;
+    <a href="terms.html">الشروط</a>
+  </footer>
+
+  <script>
+    const ACCESS_CODES = {
+      'CHAR2026': { plan: 'starter', label: 'باقة المبتدئين — Starter' },
+      'FULL2026':  { plan: 'pro',     label: 'الباقة الاحترافية — Pro' },
+      'STUD2026':  { plan: 'studio',  label: 'باقة الاستوديو — Studio' }
+    };
+
+    const DOWNLOADS = {
+      starter: [
+        { icon: '📦', name: 'حزمة برومبتات المبتدئين', meta: 'PDF + TXT · 50 برومبت', url: '#' }
+      ],
+      pro: [
+        { icon: '📦', name: 'حزمة برومبتات الاحترافية', meta: 'PDF + TXT · 150 برومبت', url: '#' },
+        { icon: '📋', name: 'دليل الاستخدام الاحترافي', meta: 'PDF · 25 صفحة', url: '#' }
+      ],
+      studio: [
+        { icon: '📦', name: 'الحزمة الكاملة للاستوديو', meta: 'PDF + TXT · 300+ برومبت', url: '#' },
+        { icon: '📋', name: 'دليل الاستوديو الشامل', meta: 'PDF · 60 صفحة', url: '#' },
+        { icon: '🎬', name: 'نماذج مشاريع جاهزة', meta: 'ZIP · 12 مشروع', url: '#' }
+      ]
+    };
+
+    function showDownloads(plan, label) {
+      document.getElementById('access-gate').style.display = 'none';
+      document.getElementById('download-page').style.display = 'block';
+      document.getElementById('planLabel').textContent = 'الباقة: ' + label;
+
+      const files = DOWNLOADS[plan] || DOWNLOADS.starter;
+      const container = document.getElementById('dlFiles');
+      container.innerHTML = files.map(f => `
+        <div class="dl-file">
+          <div class="dl-file-info">
+            <span class="dl-file-icon">${f.icon}</span>
+            <div>
+              <div class="dl-file-name">${f.name}</div>
+              <div class="dl-file-meta">${f.meta}</div>
+            </div>
+          </div>
+          ${f.url !== '#'
+            ? `<a href="${f.url}" class="dl-btn" download>⬇ تحميل</a>`
+            : `<span class="dl-btn locked">قريباً</span>`
+          }
+        </div>
+      `).join('');
+    }
+
+    // Auto-check if redirected from access modal with plan in URL or localStorage
+    const params = new URLSearchParams(location.search);
+    const urlPlan = params.get('plan');
+    const storedCode = localStorage.getItem('ap_access');
+
+    if (urlPlan && ACCESS_CODES[storedCode] && ACCESS_CODES[storedCode].plan === urlPlan) {
+      const entry = ACCESS_CODES[storedCode];
+      showDownloads(entry.plan, entry.label);
+    }
+
+    document.getElementById('gateBtn').addEventListener('click', verify);
+    document.getElementById('gateInput').addEventListener('keydown', e => { if (e.key === 'Enter') verify(); });
+
+    function verify() {
+      const code = document.getElementById('gateInput').value.trim().toUpperCase();
+      const errEl = document.getElementById('gateError');
+      const entry = ACCESS_CODES[code];
+      if (entry) {
+        errEl.textContent = '';
+        localStorage.setItem('ap_access', code);
+        showDownloads(entry.plan, entry.label);
+      } else {
+        errEl.textContent = '❌ الكود غير صحيح. تحقق من البريد الإلكتروني أو تواصل معنا.';
+        document.getElementById('gateInput').style.borderColor = '#ef4444';
+        setTimeout(() => { document.getElementById('gateInput').style.borderColor = ''; }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سياسة الخصوصية — AnimaPrompt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Reem+Kufi:wght@600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #F7B731; --black: #080808; --surface: #0e0e0e;
+      --card: #141414; --border2: #2a2a2a;
+      --white: #ffffff; --text: rgba(255,255,255,0.65); --dim: rgba(255,255,255,0.28);
+      --tr: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: var(--black); color: var(--white);
+      min-height: 100vh; display: flex; flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: var(--gold); }
+    .navbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px; border-bottom: 1px solid var(--border2);
+    }
+    .nav-logo { font-family: 'Reem Kufi', sans-serif; font-size: 22px; font-weight: 700; }
+    .nav-logo span { color: var(--gold); }
+    .nav-back {
+      font-size: 13px; color: var(--dim); border: 1px solid var(--border2);
+      padding: 6px 16px; border-radius: 20px; transition: var(--tr);
+      color: var(--dim);
+    }
+    .nav-back:hover { color: var(--gold); border-color: var(--gold); }
+    main { flex: 1; max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
+    .page-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(247,183,49,.08); border: 1px solid rgba(247,183,49,.2);
+      color: var(--gold); padding: 5px 14px; border-radius: 50px;
+      font-family: 'Roboto Mono', monospace; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+    }
+    h1 { font-family: 'Reem Kufi', sans-serif; font-size: 36px; font-weight: 700; margin-bottom: 8px; }
+    .meta { font-size: 13px; color: var(--dim); font-family: 'Roboto Mono', monospace; margin-bottom: 40px; }
+    h2 { font-size: 20px; font-weight: 700; margin: 36px 0 12px; color: var(--white); }
+    p { font-size: 15px; color: var(--text); line-height: 1.9; margin-bottom: 16px; }
+    ul { padding-right: 22px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    li { font-size: 15px; color: var(--text); line-height: 1.7; }
+    li::marker { color: var(--gold); }
+    .divider { border: none; border-top: 1px solid var(--border2); margin: 32px 0; }
+    footer {
+      text-align: center; padding: 24px;
+      border-top: 1px solid var(--border2);
+      font-size: 12px; color: var(--dim);
+      font-family: 'Roboto Mono', monospace;
+    }
+    footer a { color: var(--dim); transition: var(--tr); }
+    footer a:hover { color: var(--gold); }
+    @media (max-width: 600px) { .navbar { padding: 16px 20px; } h1 { font-size: 26px; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Anima<span>Prompt</span></a>
+    <a href="index.html" class="nav-back">← الرئيسية</a>
+  </nav>
+
+  <main>
+    <div class="page-tag">⚖ قانوني</div>
+    <h1>سياسة الخصوصية</h1>
+    <p class="meta">آخر تحديث: مايو 2026 · AnimaPrompt</p>
+
+    <p>نحن في AnimaPrompt نُقدّر خصوصيتك ونلتزم بحماية بياناتك الشخصية. توضّح هذه السياسة كيفية جمع المعلومات واستخدامها وحمايتها عند استخدام موقعنا.</p>
+
+    <hr class="divider">
+
+    <h2>1. المعلومات التي نجمعها</h2>
+    <p>لا نجمع أي بيانات شخصية مباشرة عبر هذا الموقع. عمليات الدفع تتم عبر منصة Gumroad الخارجية التي لها سياسة خصوصية مستقلة. نحن نجمع:</p>
+    <ul>
+      <li>بيانات استخدام مجهولة الهوية (عدد الزيارات، الصفحات الأكثر مشاهدة) عبر Vercel Analytics</li>
+      <li>معلومات تقنية مثل نوع المتصفح ونظام التشغيل لتحسين الموقع</li>
+      <li>لا نجمع أسماء أو عناوين بريد إلكتروني مباشرةً دون موافقتك الصريحة</li>
+    </ul>
+
+    <h2>2. استخدام ملفات تعريف الارتباط (Cookies)</h2>
+    <p>يستخدم الموقع تخزين المتصفح المحلي (localStorage) لحفظ تفضيلات اللغة وكود الوصول الخاص بك محلياً على جهازك فقط. لا يُرسَل هذا إلى خوادمنا.</p>
+
+    <h2>3. مشاركة البيانات مع أطراف ثالثة</h2>
+    <p>لا نبيع ولا نؤجر ولا نشارك بياناتك مع أي طرف ثالث لأغراض تجارية. قد نستخدم خدمات خارجية لتشغيل الموقع:</p>
+    <ul>
+      <li><strong>Gumroad</strong>: معالجة المدفوعات — راجع <a href="https://gumroad.com/privacy" target="_blank">سياسة خصوصيتهم</a></li>
+      <li><strong>Vercel</strong>: استضافة الموقع وتحليلات الأداء</li>
+      <li><strong>Google Fonts</strong>: تحميل الخطوط</li>
+    </ul>
+
+    <h2>4. الأمان</h2>
+    <p>نتخذ التدابير التقنية المناسبة لحماية الموقع والبيانات. جميع صفحات الموقع تعمل عبر بروتوكول HTTPS الآمن. أكواد الوصول مؤقتة وخاصة بك.</p>
+
+    <h2>5. حقوقك</h2>
+    <p>يحق لك في أي وقت:</p>
+    <ul>
+      <li>طلب حذف أي بيانات مرتبطة بك</li>
+      <li>الاطلاع على المعلومات التي نحتفظ بها</li>
+      <li>إلغاء أي تفضيلات محفوظة بمسح بيانات المتصفح المحلية</li>
+    </ul>
+
+    <h2>6. تغييرات على هذه السياسة</h2>
+    <p>قد نُحدّث هذه السياسة بشكل دوري. سيتم نشر أي تغييرات على هذه الصفحة مع تحديث تاريخ "آخر تحديث" في الأعلى.</p>
+
+    <h2>7. تواصل معنا</h2>
+    <p>لأي استفسارات تتعلق بالخصوصية، يمكنك التواصل معنا عبر <a href="https://t.me/animaprompt" target="_blank">تيليغرام</a>.</p>
+  </main>
+
+  <footer>
+    <span>© 2026 AnimaPrompt</span> &nbsp;·&nbsp;
+    <a href="privacy.html">الخصوصية</a> &nbsp;·&nbsp;
+    <a href="terms.html">الشروط</a> &nbsp;·&nbsp;
+    <a href="index.html">الرئيسية</a>
+  </footer>
+</body>
+</html>
